@@ -1,0 +1,123 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+struct node
+{
+    int data;
+    struct node *next;
+};
+
+struct node *front = NULL;
+struct node *rear = NULL;
+
+void insert()
+{
+    int ele;
+    struct node *newnode;
+
+    newnode = (struct node *)malloc(sizeof(struct node));
+
+    printf("Enter element: ");
+    scanf("%d", &ele);
+
+    newnode->data = ele;
+    newnode->next = NULL;
+
+    if (front == NULL)
+    {
+        front = newnode;
+        rear = newnode;
+    }
+    else
+    {
+        rear->next = newnode;
+        rear = newnode;
+    }
+}
+
+void delete()
+{
+    struct node *temp;
+
+    if (front == NULL)
+    {
+        printf("Queue is empty\n");
+        return;
+    }
+
+    temp = front;
+
+    printf("Deleted element = %d\n", temp->data);
+
+    front = front->next;
+
+    if (front == NULL)
+    {
+        rear = NULL;
+    }
+
+    free(temp);
+}
+
+void traverse()
+{
+    struct node *temp;
+
+    if (front == NULL)
+    {
+        printf("Queue is empty\n");
+        return;
+    }
+
+    temp = front;
+
+    printf("Queue elements:\n");
+
+    while (temp != NULL)
+    {
+        printf("%d ", temp->data);
+        temp = temp->next;
+    }
+
+    printf("\n");
+}
+
+int main()
+{
+    int choice;
+
+    while (1)
+    {
+        printf("\n--- QUEUE USING LINKED LIST ---\n");
+        printf("1. Insert\n");
+        printf("2. Delete\n");
+        printf("3. Traverse\n");
+        printf("4. Exit\n");
+
+        printf("Enter choice: ");
+        scanf("%d", &choice);
+
+        switch (choice)
+        {
+            case 1:
+                insert();
+                break;
+
+            case 2:
+                delete();
+                break;
+
+            case 3:
+                traverse();
+                break;
+
+            case 4:
+                exit(0);
+
+            default:
+                printf("Invalid choice\n");
+        }
+    }
+
+    return 0;
+}
